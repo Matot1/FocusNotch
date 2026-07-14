@@ -56,7 +56,7 @@ enum Localization {
             "Disable macOS notification when timer starting": "Open Focus settings to enable",
 
             "FocusNotch": "FocusNotch",
-            "Version 1.0.0": "Version 1.0.0",
+            "Version 0.1.0": "Version 0.1.0",
             "Developer": "Developer",
             "FocusNotch Team": "FocusNotch Team",
             "Built with": "Built with",
@@ -111,7 +111,7 @@ enum Localization {
             "Disable macOS notification when timer starting": "Открыть настройки Focus для включения",
 
             "FocusNotch": "FocusNotch",
-            "Version 1.0.0": "Версия 1.0.0",
+            "Version 0.1.0": "Версия 0.1.0",
             "Developer": "Разработчик",
             "FocusNotch Team": "Команда FocusNotch",
             "Built with": "Создано с",

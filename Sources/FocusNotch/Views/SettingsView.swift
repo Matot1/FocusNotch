@@ -344,7 +344,7 @@ struct AboutSettingsView: View {
                     .font(.custom("Forza Thin", size: 18))
                     .foregroundColor(.white)
 
-                Text(tr("Version 1.0.0"))
+                Text(tr("Version 0.1.0"))
                     .font(.custom("Forza Thin", size: 11))
                     .foregroundColor(.white.opacity(0.4))
 
