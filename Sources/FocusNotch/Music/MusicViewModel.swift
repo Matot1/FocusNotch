@@ -35,7 +35,15 @@ class MusicViewModel: ObservableObject {
             .store(in: &cancellables)
     }
 
-    func playPause() { currentService?.playPause() }
+    func playPause() {
+        let t = currentTrack
+        currentTrack = Track(
+            id: t.id, title: t.title, artist: t.artist, album: t.album,
+            albumArtURL: t.albumArtURL, duration: t.duration, progress: t.progress,
+            isPlaying: !t.isPlaying, provider: t.provider
+        )
+        currentService?.playPause()
+    }
     func nextTrack() { currentService?.nextTrack() }
     func previousTrack() { currentService?.previousTrack() }
 

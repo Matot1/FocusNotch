@@ -28,15 +28,10 @@ class YandexMusicService: MusicServiceProtocol {
     private var getNowPlayingClient: MRMediaRemoteGetNowPlayingClientFn?
     private func loadMediaRemote() {
         let url = URL(fileURLWithPath: "/System/Library/PrivateFrameworks/MediaRemote.framework")
-        guard let bundle = CFBundleCreate(kCFAllocatorDefault, url as CFURL) else {
-            print("Yandex: CFBundleCreate failed")
-            return
-        }
+        guard let bundle = CFBundleCreate(kCFAllocatorDefault, url as CFURL) else { return }
         CFBundleLoadExecutable(bundle)
         if let fn = CFBundleGetFunctionPointerForName(bundle, "MRMediaRemoteGetNowPlayingInfo" as CFString) {
             getNowPlayingInfo = unsafeBitCast(fn, to: MRMediaRemoteGetNowPlayingInfoFn.self)
-        } else {
-            print("Yandex: MRMediaRemoteGetNowPlayingInfo not found")
         }
         if let fn = CFBundleGetFunctionPointerForName(bundle, "MRMediaRemoteGetNowPlayingClient" as CFString) {
             getNowPlayingClient = unsafeBitCast(fn, to: MRMediaRemoteGetNowPlayingClientFn.self)
@@ -60,14 +55,14 @@ class YandexMusicService: MusicServiceProtocol {
     }
 
     func nextTrack() {
-        postMediaKey(NX_KEYTYPE_NEXT)
+        postMediaKey(NX_KEYTYPE_NEXT, delayPoll: 0.3)
     }
 
     func previousTrack() {
-        postMediaKey(NX_KEYTYPE_PREVIOUS)
+        postMediaKey(NX_KEYTYPE_PREVIOUS, delayPoll: 0.3)
     }
 
-    private func postMediaKey(_ key: Int32) {
+    private func postMediaKey(_ key: Int32, delayPoll: TimeInterval = 0) {
         let loc = NSPoint(x: NSScreen.main?.frame.midX ?? 0, y: 0)
         let down = NSEvent.otherEvent(
             with: .systemDefined, location: loc, modifierFlags: [],
@@ -81,6 +76,12 @@ class YandexMusicService: MusicServiceProtocol {
         )
         down?.cgEvent?.post(tap: .cghidEventTap)
         up?.cgEvent?.post(tap: .cghidEventTap)
+
+        if delayPoll > 0 {
+            bgQueue.asyncAfter(deadline: .now() + delayPoll) { [weak self] in
+                self?.fetchNowPlaying()
+            }
+        }
     }
 
     func startObserving() {
@@ -98,7 +99,6 @@ class YandexMusicService: MusicServiceProtocol {
 
     private func poll() {
         let running = isAppRunning()
-        print("Yandex: running=\(running)")
         authSubject.send(running)
         if running {
             checkClient()
@@ -110,9 +110,7 @@ class YandexMusicService: MusicServiceProtocol {
 
     private func checkClient() {
         guard let getClient = getNowPlayingClient else { return }
-        getClient { (client: AnyObject?) in
-            print("Yandex client: \(client.debugDescription)")
-        }
+        getClient { _ in }
     }
 
     private func fetchNowPlaying() {
@@ -150,10 +148,8 @@ class YandexMusicService: MusicServiceProtocol {
             try task.run()
             let data = pipe.fileHandleForReading.readDataToEndOfFile()
             let output = String(data: data, encoding: .utf8) ?? ""
-            print("Yandex: helper output: \(output.trimmingCharacters(in: .whitespacesAndNewlines))")
             parseHelperOutput(output)
         } catch {
-            print("Yandex: helper failed \(error)")
         }
     }
 
