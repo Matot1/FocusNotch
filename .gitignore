@@ -1,0 +1,7 @@
+.build/
+*.dSYM/
+.DS_Store
+.build
+*.xcworkspace
+*.xcuserdata
+Pods/
