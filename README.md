@@ -26,9 +26,9 @@ En: MacOS Application: Interactive Menu Bar Panel with Pomodoro Timer and Music
 2. Распакуйте архив и переместите `FocusNotch.app` в папку `Программы`
 3. Запустите приложение (потребуется подтверждение Gatekeeper)
 
-## EN:Installation
-1. Download the latest version from the Releases page
-2. Extract the archive and move FocusNotch.app to the Applications folder
+## EN: Installation
+1. Download the latest version from the [Releases page](https://github.com/Matot1/FocusNotch/releases)
+2. Extract the archive and move `FocusNotch.app` to the `Applications folder`
 3. Launch the application (Gatekeeper confirmation may be required)
 
 > **Requirements:** macOS 14+, Xcode 15+ or Command Line Tools
