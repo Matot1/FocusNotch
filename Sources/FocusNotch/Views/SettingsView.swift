@@ -44,6 +44,22 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.plain)
                 }
+
+                Spacer()
+
+                Button(action: { NSApplication.shared.terminate(nil) }) {
+                    HStack(spacing: 4) {
+                        Image(systemName: "power")
+                            .font(.system(size: 11))
+                        Text(tr("Quit FocusNotch"))
+                            .font(.system(size: 11, weight: .medium))
+                    }
+                    .foregroundColor(.red.opacity(0.8))
+                    .padding(.horizontal, 10)
+                    .padding(.vertical, 5)
+                }
+                .buttonStyle(.plain)
+                .help(tr("Quit FocusNotch"))
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)
@@ -164,22 +180,6 @@ struct GeneralSettingsView: View {
                 .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
-                Spacer(minLength: 0)
-
-                Button(action: { NSApplication.shared.terminate(nil) }) {
-                    HStack(spacing: 6) {
-                        Image(systemName: "power")
-                            .font(.system(size: 11))
-                        Text(tr("Quit FocusNotch"))
-                            .font(.custom("Forza Thin", size: 11))
-                    }
-                    .foregroundColor(.red.opacity(0.8))
-                    .padding(.horizontal, 16)
-                    .padding(.vertical, 8)
-                    .background(Color.white.opacity(0.05))
-                    .clipShape(Capsule())
-                }
-                .buttonStyle(.plain)
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 12)
