@@ -13,12 +13,12 @@ En: MacOS Application: Interactive Menu Bar Panel with Pomodoro Timer and Music
 - **Full Concentration** — отключение звуков приложения
 
 ## EN: Features
-**Pomodoro Timer** — 25/5/15 minutes, long break after N sessions, sound notifications
-**Mini Timer** — displays on top of all windows during work, shows remaining time
-**Music** — control Spotify, Apple Music and Yandex Music (play/pause, next, previous)
-**Settings** — General, Timer, Notification, About
-**Language** — English / Russian
-**Full Concentration** — mute application sounds
+- **Pomodoro Timer** — 25/5/15 minutes, long break after N sessions, sound notifications
+- **Mini Timer** — displays on top of all windows during work, shows remaining time
+- **Music** — control Spotify, Apple Music and Yandex Music (play/pause, next, previous)
+- **Settings** — General, Timer, Notification, About
+- **Language** — English / Russian
+- **Full Concentration** — mute application sounds
 
 ## RU: Установка
 
