@@ -1,8 +1,9 @@
 # FocusNotch
 
-macOS-приложение, превращающее челку экрана в интерактивную панель с таймером Pomodoro и музыкой.
+Ru: MacOS-приложение, интерактивная панель в челке экрана с таймером Pomodoro и музыкой.
+En: MacOS Application: Interactive Menu Bar Panel with Pomodoro Timer and Music
 
-## Возможности
+## RU:Возможности
 
 - **Pomodoro таймер** — 25/5/15 минут, длинный перерыв после N сессий, звуковые оповещения
 - **Мини-таймер** — отображается поверх всех окон во время работы, показывает оставшееся время
@@ -11,31 +12,26 @@ macOS-приложение, превращающее челку экрана в 
 - **Язык** — английский / русский
 - **Full Concentration** — отключение звуков приложения
 
-## Управление
+## EN: Features
+**Pomodoro Timer** — 25/5/15 minutes, long break after N sessions, sound notifications
+**Mini Timer** — displays on top of all windows during work, shows remaining time
+**Music** — control Spotify, Apple Music and Yandex Music (play/pause, next, previous)
+**Settings** — General, Timer, Notification, About
+**Language** — English / Russian
+**Full Concentration** — mute application sounds
 
-- Наведение на челку — появление блока вызова
-- Клик — открытие основного окна
-- Клик вне окна — закрытие
-
-## Установка
-
-### Вариант 1: Скачать готовый .app
+## RU:Установка
 
 1. Скачайте последнюю версию со [страницы релизов](https://github.com/Matot1/FocusNotch/releases)
 2. Распакуйте архив и переместите `FocusNotch.app` в папку `Программы`
 3. Запустите приложение (потребуется подтверждение Gatekeeper)
 
-### Вариант 2: Собрать из исходного кода
+## EN:Installation
+1. Download the latest version from the Releases page
+2. Extract the archive and move FocusNotch.app to the Applications folder
+3. Launch the application (Gatekeeper confirmation may be required)
 
-```bash
-git clone https://github.com/Matot1/FocusNotch.git
-cd FocusNotch
-./build.sh
-open .build/debug/FocusNotch.app
-```
+> **Requirements:** macOS 14+, Xcode 15+ or Command Line Tools
 
-> **Требования:** macOS 14+, Xcode 15+ или Command Line Tools
-
-## Технологии
-
+## Technologies
 SwiftUI + AppKit, macOS 14+
