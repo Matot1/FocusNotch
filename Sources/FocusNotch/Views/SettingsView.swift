@@ -19,7 +19,6 @@ enum SettingsTab: String, CaseIterable {
 
 struct SettingsView: View {
     @ObservedObject var loc = LanguageManager.shared
-    @AppStorage("theme") private var theme: String = "dark"
     @State private var selectedTab: SettingsTab = .general
 
     var body: some View {
@@ -33,14 +32,14 @@ struct SettingsView: View {
                             Text(tr(tab.rawValue))
                                 .font(.system(size: 11, weight: .medium))
                         }
-                        .foregroundColor(selectedTab == tab ? ThemeColors.text(theme) : ThemeColors.secondaryText(theme))
+                        .foregroundColor(selectedTab == tab ? .white : .white.opacity(0.5))
                         .padding(.horizontal, 10)
                         .padding(.vertical, 5)
-                        .background(selectedTab == tab ? ThemeColors.cardBackground(theme) : Color.clear)
+                        .background(selectedTab == tab ? Color.white.opacity(0.15) : Color.clear)
                         .clipShape(RoundedRectangle(cornerRadius: 6))
                         .overlay(
                             RoundedRectangle(cornerRadius: 6)
-                                .stroke(selectedTab == tab ? ThemeColors.stroke(theme) : Color.clear, lineWidth: 1)
+                                .stroke(selectedTab == tab ? Color.white.opacity(0.2) : Color.clear, lineWidth: 1)
                         )
                     }
                     .buttonStyle(.plain)
@@ -80,18 +79,18 @@ struct GeneralSettingsView: View {
                 HStack(spacing: 10) {
                     Image(systemName: "bolt.circle")
                         .font(.system(size: 14))
-                        .foregroundColor(ThemeColors.secondaryText(theme))
+                        .foregroundColor(.white.opacity(0.6))
                         .frame(width: 20)
 
                     Text(tr("Launch at Login"))
                         .font(.custom("Forza Thin", size: 12))
-                        .foregroundColor(ThemeColors.text(theme))
+                        .foregroundColor(.white)
 
                     Spacer()
 
                     Toggle("", isOn: $launchAtLogin)
                         .toggleStyle(.switch)
-                        .tint(ThemeColors.toggleTint(theme))
+                        .tint(.orange)
                         .onChange(of: launchAtLogin) { _, newValue in
                             if newValue {
                                 try? SMAppService.mainApp.register()
@@ -102,11 +101,10 @@ struct GeneralSettingsView: View {
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(ThemeColors.cardBackground(theme))
+                .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 SettingRow(
-                    theme: theme,
                     icon: "music.note",
                     title: tr("Music Integration"),
                     description: tr("Spotify, Apple Music, Yandex Music")
@@ -115,12 +113,12 @@ struct GeneralSettingsView: View {
                 HStack(spacing: 10) {
                     Image(systemName: "globe")
                         .font(.system(size: 14))
-                        .foregroundColor(ThemeColors.secondaryText(theme))
+                        .foregroundColor(.white.opacity(0.6))
                         .frame(width: 20)
 
                     Text(tr("Language"))
                         .font(.custom("Forza Thin", size: 12))
-                        .foregroundColor(ThemeColors.text(theme))
+                        .foregroundColor(.white)
 
                     Spacer()
 
@@ -132,23 +130,23 @@ struct GeneralSettingsView: View {
                         Text(tr("Russian")).tag("ru")
                     }
                     .pickerStyle(.menu)
-                    .tint(ThemeColors.toggleTint(theme))
+                    .tint(.orange)
                     .frame(width: 100)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(ThemeColors.cardBackground(theme))
+                .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 HStack(spacing: 10) {
                     Image(systemName: "paintpalette")
                         .font(.system(size: 14))
-                        .foregroundColor(ThemeColors.secondaryText(theme))
+                        .foregroundColor(.white.opacity(0.6))
                         .frame(width: 20)
 
                     Text(tr("Theme"))
                         .font(.custom("Forza Thin", size: 12))
-                        .foregroundColor(ThemeColors.text(theme))
+                        .foregroundColor(.white)
 
                     Spacer()
 
@@ -158,12 +156,12 @@ struct GeneralSettingsView: View {
                         Text(tr("Colorless")).tag("colorless")
                     }
                     .pickerStyle(.menu)
-                    .tint(ThemeColors.toggleTint(theme))
+                    .tint(.orange)
                     .frame(width: 100)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(ThemeColors.cardBackground(theme))
+                .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 Spacer(minLength: 0)
@@ -178,7 +176,7 @@ struct GeneralSettingsView: View {
                     .foregroundColor(.red.opacity(0.8))
                     .padding(.horizontal, 16)
                     .padding(.vertical, 8)
-                    .background(ThemeColors.cardBackground(theme))
+                    .background(Color.white.opacity(0.05))
                     .clipShape(Capsule())
                 }
                 .buttonStyle(.plain)
@@ -194,7 +192,6 @@ struct GeneralSettingsView: View {
 
 struct TimerSettingsView: View {
     @ObservedObject var loc = LanguageManager.shared
-    @AppStorage("theme") private var theme: String = "dark"
     @AppStorage("workDuration") private var workDuration: Double = 25
     @AppStorage("longBreakDuration") private var longBreakDuration: Double = 5
     @AppStorage("extendedBreakDuration") private var extendedBreakDuration: Double = 45
@@ -204,51 +201,51 @@ struct TimerSettingsView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: 8) {
-                DurationRow(theme: theme, icon: "clock", label: tr("Focus Duration"), value: $workDuration, range: 5...60, suffix: tr("min"))
-                DurationRow(theme: theme, icon: "cup.and.saucer.fill", label: tr("Coffee Break Time"), value: $longBreakDuration, range: 1...45, suffix: tr("min"))
-                DurationRow(theme: theme, icon: "moon.zzz.fill", label: tr("Long Break"), value: $extendedBreakDuration, range: 15...90, suffix: tr("min"))
+                DurationRow(icon: "clock", label: tr("Focus Duration"), value: $workDuration, range: 5...60, suffix: tr("min"))
+                DurationRow(icon: "cup.and.saucer.fill", label: tr("Coffee Break Time"), value: $longBreakDuration, range: 1...45, suffix: tr("min"))
+                DurationRow(icon: "moon.zzz.fill", label: tr("Long Break"), value: $extendedBreakDuration, range: 15...90, suffix: tr("min"))
 
                 HStack(spacing: 10) {
                     Image(systemName: "repeat")
                         .font(.system(size: 14))
-                        .foregroundColor(ThemeColors.secondaryText(theme))
+                        .foregroundColor(.white.opacity(0.6))
                         .frame(width: 20)
 
                     Text(tr("Sessions before long break"))
                         .font(.custom("Forza Thin", size: 12))
-                        .foregroundColor(ThemeColors.text(theme))
+                        .foregroundColor(.white)
                     Spacer()
                     Stepper(value: $sessionsBeforeLongBreak, in: 1...10) {
                         Text("\(Int(sessionsBeforeLongBreak))")
                             .font(.custom("Forza Thin", size: 12))
-                            .foregroundColor(ThemeColors.text(theme))
+                            .foregroundColor(.white)
                             .frame(width: 30, alignment: .trailing)
                     }
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(ThemeColors.cardBackground(theme))
+                .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 HStack(spacing: 10) {
                     Image(systemName: "forward")
                         .font(.system(size: 14))
-                        .foregroundColor(ThemeColors.secondaryText(theme))
+                        .foregroundColor(.white.opacity(0.6))
                         .frame(width: 20)
 
                     Text(tr("Automatically start break after focus session"))
                         .font(.custom("Forza Thin", size: 12))
-                        .foregroundColor(ThemeColors.text(theme))
+                        .foregroundColor(.white)
 
                     Spacer()
 
                     Toggle("", isOn: $autoStartBreak)
                         .toggleStyle(.switch)
-                        .tint(ThemeColors.toggleTint(theme))
+                        .tint(.orange)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(ThemeColors.cardBackground(theme))
+                .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .padding(.horizontal, 8)
@@ -260,7 +257,6 @@ struct TimerSettingsView: View {
 }
 
 struct DurationRow: View {
-    let theme: String
     let icon: String
     let label: String
     @Binding var value: Double
@@ -272,23 +268,23 @@ struct DurationRow: View {
             HStack(spacing: 10) {
                 Image(systemName: icon)
                     .font(.system(size: 14))
-                    .foregroundColor(ThemeColors.secondaryText(theme))
+                    .foregroundColor(.white.opacity(0.6))
                     .frame(width: 20)
 
                 Text(label)
                     .font(.custom("Forza Thin", size: 12))
-                    .foregroundColor(ThemeColors.text(theme))
+                    .foregroundColor(.white)
                 Spacer()
                 Text("\(Int(value)) \(suffix)")
                     .font(.custom("Forza Thin", size: 11))
-                    .foregroundColor(ThemeColors.secondaryText(theme))
+                    .foregroundColor(.white.opacity(0.6))
             }
             Slider(value: $value, in: range, step: 1)
-                .tint(ThemeColors.toggleTint(theme))
+                .tint(.orange)
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(ThemeColors.cardBackground(theme))
+        .background(Color.white.opacity(0.05))
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
@@ -297,7 +293,6 @@ struct DurationRow: View {
 
 struct NotificationSettingsView: View {
     @ObservedObject var loc = LanguageManager.shared
-    @AppStorage("theme") private var theme: String = "dark"
     @AppStorage("soundAlerts") private var soundAlerts = true
     @AppStorage("fullConcentration") private var fullConcentration = false
 
@@ -307,53 +302,53 @@ struct NotificationSettingsView: View {
                 HStack(spacing: 10) {
                     Image(systemName: "bell")
                         .font(.system(size: 14))
-                        .foregroundColor(ThemeColors.secondaryText(theme))
+                        .foregroundColor(.white.opacity(0.6))
                         .frame(width: 20)
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(tr("Sound Alerts"))
                             .font(.custom("Forza Thin", size: 12))
-                            .foregroundColor(ThemeColors.text(theme))
+                            .foregroundColor(.white)
                         Text(tr("Turn on/off sounds app"))
                             .font(.custom("Forza Thin", size: 10))
-                            .foregroundColor(ThemeColors.tertiaryText(theme))
+                            .foregroundColor(.white.opacity(0.4))
                     }
 
                     Spacer()
 
                     Toggle("", isOn: $soundAlerts)
                         .toggleStyle(.switch)
-                        .tint(ThemeColors.toggleTint(theme))
+                        .tint(.orange)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(ThemeColors.cardBackground(theme))
+                .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
 
                 HStack(spacing: 10) {
                     Image(systemName: "moon.zzz.fill")
                         .font(.system(size: 14))
-                        .foregroundColor(ThemeColors.secondaryText(theme))
+                        .foregroundColor(.white.opacity(0.6))
                         .frame(width: 20)
 
                     VStack(alignment: .leading, spacing: 2) {
                         Text(tr("Full Concentration"))
                             .font(.custom("Forza Thin", size: 12))
-                            .foregroundColor(ThemeColors.text(theme))
+                            .foregroundColor(.white)
                         Text(tr("Disable macOS notification when timer starting"))
                             .font(.custom("Forza Thin", size: 10))
-                            .foregroundColor(ThemeColors.tertiaryText(theme))
+                            .foregroundColor(.white.opacity(0.4))
                     }
 
                     Spacer()
 
                     Toggle("", isOn: $fullConcentration)
                         .toggleStyle(.switch)
-                        .tint(ThemeColors.toggleTint(theme))
+                        .tint(.orange)
                 }
                 .padding(.horizontal, 12)
                 .padding(.vertical, 8)
-                .background(ThemeColors.cardBackground(theme))
+                .background(Color.white.opacity(0.05))
                 .clipShape(RoundedRectangle(cornerRadius: 8))
             }
             .frame(maxWidth: .infinity)
@@ -369,27 +364,24 @@ struct NotificationSettingsView: View {
 
 struct AboutSettingsView: View {
     @ObservedObject var loc = LanguageManager.shared
-    @AppStorage("theme") private var theme: String = "dark"
     var body: some View {
         ScrollView {
             VStack(spacing: 16) {
                 Text(tr("FocusNotch"))
                     .font(.custom("Forza Thin", size: 18))
-                    .foregroundColor(ThemeColors.text(theme))
+                    .foregroundColor(.white)
 
                 Text(tr("Version 0.3.0"))
                     .font(.custom("Forza Thin", size: 11))
-                    .foregroundColor(ThemeColors.tertiaryText(theme))
+                    .foregroundColor(.white.opacity(0.4))
 
                 SettingRow(
-                    theme: theme,
                     icon: "person.circle",
                     title: tr("Developer"),
                     description: tr("FocusNotch Team")
                 )
 
                 SettingRow(
-                    theme: theme,
                     icon: "swift",
                     title: tr("Built with"),
                     description: tr("SwiftUI + AppKit")
@@ -406,7 +398,6 @@ struct AboutSettingsView: View {
 // MARK: - Shared Components
 
 struct SettingRow: View {
-    let theme: String
     let icon: String
     let title: String
     let description: String
@@ -415,23 +406,23 @@ struct SettingRow: View {
         HStack(spacing: 10) {
             Image(systemName: icon)
                 .font(.system(size: 14))
-                .foregroundColor(ThemeColors.secondaryText(theme))
+                .foregroundColor(.white.opacity(0.6))
                 .frame(width: 20)
 
             VStack(alignment: .leading, spacing: 2) {
                 Text(title)
                     .font(.custom("Forza Thin", size: 12))
-                    .foregroundColor(ThemeColors.text(theme))
+                    .foregroundColor(.white)
                 Text(description)
                     .font(.custom("Forza Thin", size: 10))
-                    .foregroundColor(ThemeColors.tertiaryText(theme))
+                    .foregroundColor(.white.opacity(0.4))
             }
 
             Spacer()
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 8)
-        .background(ThemeColors.cardBackground(theme))
+        .background(Color.white.opacity(0.05))
         .clipShape(RoundedRectangle(cornerRadius: 8))
     }
 }
