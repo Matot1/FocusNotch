@@ -44,22 +44,6 @@ struct SettingsView: View {
                     }
                     .buttonStyle(.plain)
                 }
-
-                Spacer()
-
-                Button(action: { NSApplication.shared.terminate(nil) }) {
-                    HStack(spacing: 4) {
-                        Image(systemName: "power")
-                            .font(.system(size: 11))
-                        Text(tr("Quit FocusNotch"))
-                            .font(.system(size: 11, weight: .medium))
-                    }
-                    .foregroundColor(.red.opacity(0.8))
-                    .padding(.horizontal, 10)
-                    .padding(.vertical, 5)
-                }
-                .buttonStyle(.plain)
-                .help(tr("Quit FocusNotch"))
             }
             .padding(.horizontal, 20)
             .padding(.top, 12)
@@ -77,8 +61,20 @@ struct SettingsView: View {
                     AboutSettingsView()
                 }
             }
+
+            Button(action: { NSApplication.shared.terminate(nil) }) {
+                HStack(spacing: 4) {
+                    Image(systemName: "power")
+                        .font(.system(size: 10))
+                    Text(tr("Quit FocusNotch"))
+                        .font(.system(size: 10))
+                }
+                .foregroundColor(.red.opacity(0.6))
+                .padding(.vertical, 6)
+            }
+            .buttonStyle(.plain)
         }
-        .frame(width: 480, height: 360)
+        .frame(width: 480, height: 380)
     }
 }
 
@@ -378,7 +374,7 @@ struct AboutSettingsView: View {
                 SettingRow(
                     icon: "person.circle",
                     title: tr("Developer"),
-                    description: tr("FocusNotch Team")
+                    description: "TG — @Mato_o"
                 )
 
                 SettingRow(
