@@ -20,20 +20,8 @@ struct HoveringNotchView: View {
 
     var body: some View {
         Rectangle()
-
-    .fill(ThemeColors.background(theme))
-
-    .clipShape(
-
-        UnevenRoundedRectangle(
-
-            bottomLeadingRadius: 16,
-
-            bottomTrailingRadius: 16
-
-        )
-
-    )
+            .fill(ThemeColors.background(theme))
+            .clipShape(BottomRoundedRect(radius: 16))
     }
 }
 

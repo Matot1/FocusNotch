@@ -371,17 +371,10 @@ struct AboutSettingsView: View {
                     .font(.custom("Forza Thin", size: 11))
                     .foregroundColor(.white.opacity(0.4))
 
-                SettingRow(
-                    icon: "person.circle",
-                    title: tr("Developer"),
-                    description: "TG — @Mato_o"
-                )
-
-                SettingRow(
-                    icon: "swift",
-                    title: tr("Built with"),
-                    description: tr("SwiftUI + AppKit")
-                )
+                Text("Developer: Telegram — @Mato_o")
+                    .font(.custom("Forza Thin", size: 11))
+                    .foregroundColor(.white.opacity(0.5))
+                    .padding(.top, 4)
             }
             .frame(maxWidth: .infinity)
             .padding(.top, 12)
