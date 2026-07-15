@@ -21,15 +21,14 @@ class PomodoroViewModel: ObservableObject {
     private var configSyncCancellable: AnyCancellable?
 
     init() {
-        configSyncCancellable = Timer.publish(every: 1, on: .main, in: .common)
-            .autoconnect()
+        configSyncCancellable = NotificationCenter.default.publisher(for: UserDefaults.didChangeNotification)
             .sink { [weak self] _ in
                 self?.syncConfig()
             }
     }
 
     private func syncConfig() {
-        guard !isRunning, state != .idle else { return }
+        guard !isRunning else { return }
 
         let currentWork = config.workDuration
         let currentCoffee = config.longBreakDuration
@@ -38,6 +37,8 @@ class PomodoroViewModel: ObservableObject {
         var changed = false
 
         switch state {
+        case .idle:
+            changed = true
         case .working:
             if abs(sessionWorkDuration - currentWork) > 0.5 {
                 timeRemaining = currentWork
@@ -56,8 +57,6 @@ class PomodoroViewModel: ObservableObject {
                 sessionExtendedBreak = currentExtended
                 changed = true
             }
-        default:
-            break
         }
 
         if changed {
