@@ -89,7 +89,7 @@ struct ThemeColors {
         if t == "colorless" {
             return Color(white: 0.4)
         }
-        return Color(red: 0.7, green: 0.2, blue: 0.7)
+        return Color(red: 137/255, green: 52/255, blue: 235/255)
     }
 
     static func accentDim(_ theme: String? = nil) -> Color {
@@ -97,7 +97,7 @@ struct ThemeColors {
         if t == "colorless" {
             return Color(white: 0.4).opacity(0.4)
         }
-        return Color(red: 0.7, green: 0.2, blue: 0.7).opacity(0.4)
+        return Color(red: 137/255, green: 52/255, blue: 235/255).opacity(0.4)
     }
 
     static func toggleTint(_ theme: String? = nil) -> Color {
