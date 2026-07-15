@@ -59,6 +59,7 @@ struct TimerView: View {
                     HStack(spacing: 6) {
                         Text(tr("Coffee break"))
                             .foregroundColor(.orange.opacity(0.8))
+                            .shadow(color: .black.opacity(0.5), radius: 2, x: 0, y: 1)
                         Text(viewModel.formattedTime)
                             .foregroundColor(ThemeColors.text(theme))
                             .monospacedDigit()
