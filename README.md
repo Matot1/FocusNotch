@@ -3,7 +3,7 @@
 Ru: MacOS-приложение, интерактивная панель в челке экрана с таймером Pomodoro и музыкой.
 En: MacOS Application: Interactive Menu Bar Panel with Pomodoro Timer and Music
 
-## RU:Возможности
+## RU: Возможности
 
 - **Pomodoro таймер** — 25/5/15 минут, длинный перерыв после N сессий, звуковые оповещения
 - **Мини-таймер** — отображается поверх всех окон во время работы, показывает оставшееся время
@@ -20,7 +20,7 @@ En: MacOS Application: Interactive Menu Bar Panel with Pomodoro Timer and Music
 **Language** — English / Russian
 **Full Concentration** — mute application sounds
 
-## RU:Установка
+## RU: Установка
 
 1. Скачайте последнюю версию со [страницы релизов](https://github.com/Matot1/FocusNotch/releases)
 2. Распакуйте архив и переместите `FocusNotch.app` в папку `Программы`
