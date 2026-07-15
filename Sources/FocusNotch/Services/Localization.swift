@@ -56,7 +56,7 @@ enum Localization {
             "Disable macOS notification when timer starting": "Open Focus settings to enable",
 
             "FocusNotch": "FocusNotch",
-            "Version 0.2.0": "Version 0.2.0",
+            "Version 0.3.0": "Version 0.3.0",
             "Developer": "Developer",
             "FocusNotch Team": "FocusNotch Team",
             "Built with": "Built with",
@@ -74,6 +74,11 @@ enum Localization {
             "Automatically start break after focus session": "Automatically start break after focus session",
 
             "Unknown Artist": "Unknown Artist",
+
+            "Theme": "Theme",
+            "Default": "Default",
+            "Light": "Light",
+            "Colorless": "Colorless",
         ],
         "ru": [
             "Automatically start break after focus session": "Автоматически начинать перерыв после сессии",
@@ -111,7 +116,7 @@ enum Localization {
             "Disable macOS notification when timer starting": "Открыть настройки Focus для включения",
 
             "FocusNotch": "FocusNotch",
-            "Version 0.2.0": "Версия 0.2.0",
+            "Version 0.3.0": "Версия 0.3.0",
             "Developer": "Разработчик",
             "FocusNotch Team": "Команда FocusNotch",
             "Built with": "Создано с",
@@ -128,6 +133,11 @@ enum Localization {
             "Coffee break": "Перерыв на кофе",
 
             "Unknown Artist": "Неизвестный исполнитель",
+
+            "Theme": "Тема",
+            "Default": "Стандартная",
+            "Light": "Светлая",
+            "Colorless": "Бесцветная",
         ],
     ]
 }

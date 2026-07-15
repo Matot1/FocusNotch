@@ -16,10 +16,12 @@ struct NotchRootView: View {
 }
 
 struct HoveringNotchView: View {
+    @AppStorage("theme") private var theme: String = "dark"
+
     var body: some View {
         Rectangle()
 
-    .fill(.black)
+    .fill(ThemeColors.background(theme))
 
     .clipShape(
 

@@ -3,25 +3,27 @@ import SwiftUI
 struct MiniTimerView: View {
     @ObservedObject var viewModel: PomodoroViewModel
     @AppStorage("workDuration") private var workDuration: Double = 25
+    @AppStorage("theme") private var theme: String = "dark"
     let cornerRadius: CGFloat
     let width: CGFloat
 
     var body: some View {
         Text(viewModel.formattedTime)
             .font(.custom("Forza Thin", size: 14))
-            .foregroundColor(.white)
+            .foregroundColor(ThemeColors.text(theme))
             .monospacedDigit()
             .frame(width: width - 14, alignment: .leading)
             .frame(maxHeight: .infinity)
             .padding(.leading, 14)
             .background(
-                BottomRoundedRect(radius: cornerRadius).fill(.black)
+                BottomRoundedRect(radius: cornerRadius).fill(ThemeColors.background(theme))
             )
             .frame(width: width)
     }
 }
 
 struct CoffeeIconView: View {
+    @AppStorage("theme") private var theme: String = "dark"
     let cornerRadius: CGFloat
 
     var body: some View {
@@ -30,12 +32,13 @@ struct CoffeeIconView: View {
             .foregroundColor(.orange.opacity(0.8))
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(
-                BottomRoundedRect(radius: cornerRadius).fill(.black)
+                BottomRoundedRect(radius: cornerRadius).fill(ThemeColors.background(theme))
             )
     }
 }
 
 struct FocusIconView: View {
+    @AppStorage("theme") private var theme: String = "dark"
     let cornerRadius: CGFloat
 
     var body: some View {
@@ -44,7 +47,7 @@ struct FocusIconView: View {
             .foregroundColor(.red.opacity(0.8))
             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
             .background(
-                BottomRoundedRect(radius: cornerRadius).fill(.black)
+                BottomRoundedRect(radius: cornerRadius).fill(ThemeColors.background(theme))
             )
     }
 }

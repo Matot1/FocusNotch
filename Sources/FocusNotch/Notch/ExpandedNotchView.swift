@@ -3,6 +3,7 @@ import SwiftUI
 struct ExpandedNotchView: View {
     @ObservedObject var viewModel: NotchViewModel
     @ObservedObject var loc = LanguageManager.shared
+    @AppStorage("theme") private var theme: String = "dark"
 
     var body: some View {
         VStack(spacing: 4) {
@@ -10,7 +11,7 @@ struct ExpandedNotchView: View {
             tabContent
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
-        .background(Color.black)
+        .background(ThemeColors.background(theme))
         .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
     }
 
@@ -36,7 +37,7 @@ struct ExpandedNotchView: View {
                     }
                     .padding(.horizontal, 8)
                     .padding(.vertical, 4)
-                    .foregroundColor(.white.opacity(0.5))
+                    .foregroundColor(ThemeColors.secondaryText(theme))
                 }
                 .buttonStyle(.plain)
             }
@@ -65,8 +66,8 @@ struct ExpandedNotchView: View {
             .clipShape(Capsule())
             .foregroundColor(
                 viewModel.selectedTab == tab
-                    ? .white
-                    : .white.opacity(0.5)
+                    ? ThemeColors.text(theme)
+                    : ThemeColors.secondaryText(theme)
             )
         }
         .buttonStyle(.plain)

@@ -4,15 +4,16 @@ struct TimerView: View {
     @ObservedObject var viewModel: PomodoroViewModel
     @ObservedObject var loc = LanguageManager.shared
     @AppStorage("workDuration") private var workDuration: Double = 25
+    @AppStorage("theme") private var theme: String = "dark"
 
     var body: some View {
         HStack(spacing: 10) {
             Button(action: viewModel.reset) {
                 Image(systemName: "stop.fill")
                     .font(.system(size: 14))
-                    .foregroundColor(.white)
+                    .foregroundColor(ThemeColors.text(theme))
                     .frame(width: 30, height: 30)
-                    .background(Color.black)
+                    .background(ThemeColors.background(theme))
                     .clipShape(Circle())
                     .opacity(viewModel.state == .idle ? 0.3 : 1)
             }
@@ -27,13 +28,13 @@ struct TimerView: View {
             }) {
                 ZStack {
                     Circle()
-                        .fill(Color(red: 0.5, green: 0, blue: 0.5))
+                        .fill(ThemeColors.accent(theme))
                     Circle()
-                        .stroke(Color.white.opacity(viewModel.isRunning ? 0.6 : 0), lineWidth: 2)
+                        .stroke(ThemeColors.text(theme).opacity(viewModel.isRunning ? 0.6 : 0), lineWidth: 2)
                         .padding(2)
                     Image(systemName: viewModel.isRunning ? "pause.fill" : "play.fill")
                         .font(.system(size: 12))
-                        .foregroundColor(.white)
+                        .foregroundColor(ThemeColors.text(theme))
                 }
                 .frame(width: 30, height: 30)
             }
@@ -42,13 +43,13 @@ struct TimerView: View {
             ZStack {
                 GeometryReader { geo in
                     ZStack(alignment: .leading) {
-                        Color(white: 0.15)
+                        ThemeColors.progressBackground(theme)
 
-                        Color(red: 0.5, green: 0, blue: 0.5).opacity(0.4)
+                        ThemeColors.accentDim(theme)
                             .frame(width: geo.size.width * viewModel.progress)
 
                         Rectangle()
-                            .fill(Color(red: 0.5, green: 0, blue: 0.5))
+                            .fill(ThemeColors.accent(theme))
                             .frame(width: 1)
                             .offset(x: geo.size.width * viewModel.progress)
                     }
@@ -59,14 +60,14 @@ struct TimerView: View {
                         Text(tr("Coffee break"))
                             .foregroundColor(.orange.opacity(0.8))
                         Text(viewModel.formattedTime)
-                            .foregroundColor(.white)
+                            .foregroundColor(ThemeColors.text(theme))
                             .monospacedDigit()
                     }
                     .font(.custom("Forza Thin", size: 22))
                 } else {
                     Text(viewModel.formattedTime)
                         .font(.custom("Forza Thin", size: 22))
-                        .foregroundColor(.white)
+                        .foregroundColor(ThemeColors.text(theme))
                         .monospacedDigit()
                 }
             }
@@ -81,13 +82,13 @@ struct TimerView: View {
             }) {
                 ZStack {
                     Circle()
-                        .fill(Color.white.opacity(0.1))
+                        .fill(ThemeColors.cardBackground(theme))
                     Circle()
-                        .stroke(Color.white.opacity(viewModel.isOnBreak ? 0.6 : 0), lineWidth: 2)
+                        .stroke(ThemeColors.text(theme).opacity(viewModel.isOnBreak ? 0.6 : 0), lineWidth: 2)
                         .padding(2)
                     Image(systemName: "cup.and.saucer.fill")
                         .font(.system(size: 11))
-                        .foregroundColor(.white)
+                        .foregroundColor(ThemeColors.text(theme))
                 }
                 .frame(width: 30, height: 30)
             }
@@ -97,7 +98,7 @@ struct TimerView: View {
         .padding(.vertical, 6)
         .overlay(
             RoundedRectangle(cornerRadius: 10)
-                .stroke(Color.white.opacity(0.25), lineWidth: 1)
+                .stroke(ThemeColors.stroke(theme), lineWidth: 1)
         )
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
         .padding(.top, 2)
