@@ -7,6 +7,7 @@ class MusicViewModel: ObservableObject {
     @Published var activeProvider: MusicProvider = .yandexMusic
 
     private var cancellables = Set<AnyCancellable>()
+    private var detectionTimer: AnyCancellable?
 
     private let spotifyService = SpotifyService()
     private let appleMusicService = AppleMusicService()
@@ -16,6 +17,44 @@ class MusicViewModel: ObservableObject {
         subscribe(to: spotifyService, provider: .spotify)
         subscribe(to: appleMusicService, provider: .appleMusic)
         subscribe(to: yandexMusicService, provider: .yandexMusic)
+        startProviderDetection()
+    }
+
+    deinit {
+        detectionTimer?.cancel()
+    }
+
+    private func startProviderDetection() {
+        let bundleIDs: [MusicProvider: String] = [
+            .spotify: "com.spotify.client",
+            .yandexMusic: "ru.yandex.desktop.music",
+            .appleMusic: "com.apple.Music",
+        ]
+
+        func runningProvider() -> MusicProvider? {
+            let running = NSWorkspace.shared.runningApplications.compactMap { app in
+                bundleIDs.first(where: { $0.value == app.bundleIdentifier })?.key
+            }
+            if running.isEmpty { return nil }
+            if running.count == 1 { return running[0] }
+            for p in running {
+                if let svc = self.service(for: p), svc.currentTrack?.isPlaying == true {
+                    return p
+                }
+            }
+            return running.first
+        }
+
+        detectionTimer = Timer.publish(every: 3, on: .main, in: .common)
+            .autoconnect()
+            .sink { [weak self] _ in
+                guard let self else { return }
+                if let detected = runningProvider(), detected != self.activeProvider {
+                    self.switchProvider(detected)
+                } else if runningProvider() == nil, self.activeProvider != .yandexMusic {
+                    self.switchProvider(.yandexMusic)
+                }
+            }
     }
 
     private func subscribe(to service: MusicServiceProtocol, provider: MusicProvider) {
