@@ -147,7 +147,7 @@ class NotchWindowController: NSWindowController {
         focusWindow.level = .popUpMenu
         focusWindow.collectionBehavior = [.canJoinAllSpaces, .fullScreenAuxiliary]
         focusWindow.ignoresMouseEvents = true
-        focusWindow.contentView = NSHostingView(rootView: FocusIconView(cornerRadius: cornerR))
+        focusWindow.contentView = NSHostingView(rootView: FocusIconView(musicViewModel: viewModel.musicViewModel, cornerRadius: cornerR))
         focusIconWindow = focusWindow
 
         Timer.publish(every: 0.2, on: .main, in: .common)

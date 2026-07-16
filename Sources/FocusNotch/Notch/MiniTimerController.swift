@@ -39,15 +39,30 @@ struct CoffeeIconView: View {
 
 struct FocusIconView: View {
     @AppStorage("theme") private var theme: String = "dark"
+    @ObservedObject var musicViewModel: MusicViewModel
     let cornerRadius: CGFloat
 
     var body: some View {
-        Image(systemName: "flame.fill")
-            .font(.system(size: 13))
-            .foregroundColor(.red.opacity(0.8))
-            .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-            .background(
-                BottomRoundedRect(radius: cornerRadius).fill(ThemeColors.background(theme))
-            )
+        Group {
+            if musicViewModel.currentTrack.isPlaying,
+               let url = musicViewModel.currentTrack.albumArtURL,
+               let nsImage = NSImage(contentsOf: url)
+            {
+                Image(nsImage: nsImage)
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 26, height: 26)
+                    .clipShape(RoundedRectangle(cornerRadius: 4))
+            } else {
+                Image(systemName: "flame.fill")
+                    .font(.system(size: 13))
+                    .foregroundColor(.red.opacity(0.8))
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
+        .offset(x: -8)
+        .background(
+            BottomRoundedRect(radius: cornerRadius).fill(ThemeColors.background(theme))
+        )
     }
 }
