@@ -160,11 +160,11 @@ class YandexMusicService: MusicServiceProtocol {
         let parts = payload.components(separatedBy: "|||")
         guard parts.count >= 7 else { return }
 
-        let title = parts[0]
+        let title = parts[0].trimmingCharacters(in: .whitespaces)
         guard !title.isEmpty else { return }
 
-        let artist = parts[1]
-        let album = parts[2]
+        let artist = parts[1].trimmingCharacters(in: .whitespaces)
+        let album = parts[2].trimmingCharacters(in: .whitespaces)
         let duration = TimeInterval(parts[3]) ?? 0
         let progress = TimeInterval(parts[4]) ?? 0
         let rate = Double(parts[5]) ?? 0

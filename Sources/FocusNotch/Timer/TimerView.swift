@@ -74,6 +74,10 @@ struct TimerView: View {
             .frame(maxWidth: .infinity)
             .frame(height: 32)
             .clipShape(RoundedRectangle(cornerRadius: 7))
+            .overlay(
+                RoundedRectangle(cornerRadius: 7)
+                    .stroke(viewModel.isOnBreak ? .orange : .clear, lineWidth: 1)
+            )
 
             Button(action: {
                 if !viewModel.isOnBreak {
