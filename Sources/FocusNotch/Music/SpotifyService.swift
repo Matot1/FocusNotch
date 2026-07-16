@@ -98,16 +98,17 @@ class SpotifyService: MusicServiceProtocol {
         let normalized = tid.replacingOccurrences(of: "spotify:track:", with: "")
         guard !normalized.isEmpty else { return }
 
-        guard let url = URL(string: "https://open.spotify.com/oembed?url=spotify:track:\(normalized)") else { return }
-        guard let jsonData = try? Data(contentsOf: url),
-              let json = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any],
-              let thumbURL = json["thumbnail_url"] as? String,
-              let imgURL = URL(string: thumbURL),
-              let imgData = try? Data(contentsOf: imgURL) else { return }
-
-        let savePath = NSTemporaryDirectory() + "spotify-art-\(UUID().uuidString).jpg"
-        try? imgData.write(to: URL(fileURLWithPath: savePath))
-        guard FileManager.default.fileExists(atPath: savePath) else { return }
+        let savePath = NSTemporaryDirectory() + "spotify-art-\(normalized).jpg"
+        if !FileManager.default.fileExists(atPath: savePath) {
+            guard let url = URL(string: "https://open.spotify.com/oembed?url=spotify:track:\(normalized)") else { return }
+            guard let jsonData = try? Data(contentsOf: url),
+                  let json = try? JSONSerialization.jsonObject(with: jsonData) as? [String: Any],
+                  let thumbURL = json["thumbnail_url"] as? String,
+                  let imgURL = URL(string: thumbURL),
+                  let imgData = try? Data(contentsOf: imgURL) else { return }
+            try? imgData.write(to: URL(fileURLWithPath: savePath))
+            guard FileManager.default.fileExists(atPath: savePath) else { return }
+        }
 
         DispatchQueue.main.async { [weak self] in
             guard let self, let t = self.trackSubject.value, t.id == tid else { return }

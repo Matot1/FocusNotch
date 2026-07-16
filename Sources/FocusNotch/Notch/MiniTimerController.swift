@@ -60,7 +60,7 @@ struct FocusIconView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .center)
-        .offset(x: -8)
+        .offset(x: -2)
         .background(
             BottomRoundedRect(radius: cornerRadius).fill(ThemeColors.background(theme))
         )
