@@ -1,5 +1,9 @@
 # FocusNotch
 
+<p align="center">
+  <img src="app-icon.png" width="128" alt="FocusNotch">
+</p>
+
 Ru: MacOS-приложение, интерактивная панель в челке экрана с таймером Pomodoro и музыкой.
 En: MacOS Application: Interactive Menu Bar Panel with Pomodoro Timer and Music
 
