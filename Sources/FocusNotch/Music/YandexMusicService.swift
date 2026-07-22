@@ -100,12 +100,8 @@ class YandexMusicService: MusicServiceProtocol {
     private func poll() {
         let running = isAppRunning()
         authSubject.send(running)
-        if running {
-            checkClient()
-            fetchNowPlaying()
-        } else {
-            trackSubject.send(nil)
-        }
+        checkClient()
+        fetchNowPlaying()
     }
 
     private func checkClient() {
